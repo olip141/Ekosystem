@@ -1,154 +1,171 @@
 package org.example.simulation;
+
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+
+import static org.example.simulation.Animal.*;
 
 public class Main {
+    private static final int BOARD_SIZE = 10;
+    private static final int NUM_MICE = 3;
+    private static final int NUM_CATS = 3;
+    private static final int NUM_CHEESE = 10;
+    private static final int NUM_TURNS = 20;
+
     public static void main(String[] args) {
-        int rows = 30;
-        int cols = 30;
-        int numTurns = 20;
-        int numMice = 115;
-        int numCats = 15;
-        int numCheese = 200;
+        ArrayList<ArrayList<Character>> board = createBoard();
+        ArrayList<Mouse> mice = createMice(board);
+        ArrayList<Cat> cats = createCats(board);
+        ArrayList<Cheese> cheeseList = createCheese(board);
 
+        for (int turn = 1; turn <= NUM_TURNS; turn++) {
+            System.out.println("Turn " + turn + ":");
+
+            printBoard(board);
+
+            moveAnimals(board, mice, cats);
+
+            handleCollisions(board, mice, cats, cheeseList);
+        }
+    }
+
+    private static ArrayList<ArrayList<Character>> createBoard() {
         ArrayList<ArrayList<Character>> board = new ArrayList<>();
-        Set<String> occupiedPositions = new HashSet<>();
-
-        // myszy na polach
-        ArrayList<Mouse> mice = new ArrayList<>();
-        for (int i = 0; i < numMice; i++) {
-            int x, y;
-            do {
-                x = new Random().nextInt(cols);
-                y = new Random().nextInt(rows);
-            } while (occupiedPositions.contains(x + "," + y));
-            occupiedPositions.add(x + "," + y);
-            mice.add(new Mouse(x, y));
-        }
-
-        // koty na polach
-        ArrayList<Cat> cats = new ArrayList<>();
-        for (int i = 0; i < numCats; i++) {
-            int x, y;
-            do {
-                x = new Random().nextInt(cols);
-                y = new Random().nextInt(rows);
-            } while (occupiedPositions.contains(x + "," + y));
-            occupiedPositions.add(x + "," + y);
-            cats.add(new Cat(x, y));
-        }
-
-        // ser na polach
-        ArrayList<Plant> plants = new ArrayList<>();
-        for (int i = 0; i < numCheese; i++) {
-            int x, y;
-            do {
-                x = new Random().nextInt(cols);
-                y = new Random().nextInt(rows);
-            } while (occupiedPositions.contains(x + "," + y));
-            occupiedPositions.add(x + "," + y);
-            plants.add(new Plant(x, y));
-        }
-
-        // plansza
-        for (int i = 0; i < rows; i++) {
+        for (int i = 0; i < BOARD_SIZE; i++) {
             ArrayList<Character> row = new ArrayList<>();
-            for (int j = 0; j < cols; j++) {
-                row.add('.');
+            for (int j = 0; j < BOARD_SIZE; j++) {
+                row.add(Animal.EMPTY);
             }
             board.add(row);
         }
+        return board;
+    }
 
-        for (int turn = 1; turn <= numTurns; turn++) {
-            for (ArrayList<Character> row : board) {
-                for (int j = 0; j < row.size(); j++) {
-                    row.set(j, '.');
+    private static ArrayList<Mouse> createMice(ArrayList<ArrayList<Character>> board) {
+        ArrayList<Mouse> mice = new ArrayList<>();
+        for (int i = 0; i < NUM_MICE; i++) {
+            int row, col;
+            do {
+                row = (int) (Math.random() * BOARD_SIZE);
+                col = (int) (Math.random() * BOARD_SIZE);
+            } while (board.get(row).get(col) != Animal.EMPTY);
+            Mouse mouse = new Mouse(row, col);
+            mice.add(mouse);
+            board.get(row).set(col, MOUSE);
+        }
+        return mice;
+    }
+
+    private static ArrayList<Cat> createCats(ArrayList<ArrayList<Character>> board) {
+        ArrayList<Cat> cats = new ArrayList<>();
+        for (int i = 0; i < NUM_CATS; i++) {
+            int row, col;
+            do {
+                row = (int) (Math.random() * BOARD_SIZE);
+                col = (int) (Math.random() * BOARD_SIZE);
+            } while (board.get(row).get(col) != Animal.EMPTY);
+            Cat cat = new Cat(row, col);
+            cats.add(cat);
+            board.get(row).set(col, CAT);
+        }
+        return cats;
+    }
+
+    private static ArrayList<Cheese> createCheese(ArrayList<ArrayList<Character>> board) {
+        ArrayList<Cheese> cheeseList = new ArrayList<>();
+        for (int i = 0; i < NUM_CHEESE; i++) {
+            int row, col;
+            do {
+                row = (int) (Math.random() * BOARD_SIZE);
+                col = (int) (Math.random() * BOARD_SIZE);
+            } while (board.get(row).get(col) != Animal.EMPTY);
+            Cheese cheese = new Cheese(row, col);
+            cheeseList.add(cheese);
+            board.get(row).set(col, CHEESE);
+        }
+        return cheeseList;
+    }
+
+    public static void printBoard(ArrayList<ArrayList<Character>> board) {
+        int numCats = 0;
+        int numMice = 0;
+        int numCheeses = 0;
+
+        for (int i = 0; i < board.size(); i++) {
+            for (int j = 0; j < board.get(i).size(); j++) {
+                System.out.print(board.get(i).get(j) + " ");
+                if (board.get(i).get(j) == CAT) {
+                    numCats++;
+                } else if (board.get(i).get(j) == MOUSE) {
+                    numMice++;
+                } else if (board.get(i).get(j) == CHEESE) {
+                    numCheeses++;
                 }
             }
-
-            // myszy na planszy
-            for (Mouse mouse : mice) {
-                board.get(mouse.getY()).set(mouse.getX(), 'M'); // M represents the mouse
-                mouse.move();
-            }
-
-            // koty na planszy
-            for (Cat cat : cats) {
-                board.get(cat.getY()).set(cat.getX(), 'C'); // C represents the cat
-                cat.move();
-            }
-
-            // ser na polach
-            for (Plant plant : plants) {
-                board.get(plant.getY()).set(plant.getX(), 'S'); // S represents the cheese
-            }
-
-            // sprawdzenie czy mysz obok sera
-            for (Mouse mouse : mice) {
-                for (Plant plant : plants) {
-                    int distance = Math.abs(mouse.getX() - plant.getX()) + Math.abs(mouse.getY() - plant.getY());
-                    if (distance <= 1) {
-                        mouse.resetTurnsSinceLastCheese();
-                        occupiedPositions.remove(plant.getX() + "," + plant.getY());
-                        plants.remove(plant);
-                        break;
-                    }
-                }
-            }
-
-            // sprawdzenie czy kot obok myszy
-            for (Cat cat : cats) {
-                for (Mouse mouse : mice) {
-                    int distance = Math.abs(cat.getX() - mouse.getX()) + Math.abs(cat.getY() - mouse.getY());
-                    if (distance <= 1) {
-                        cat.resetTurnsSinceLastMouse();
-                        occupiedPositions.remove(mouse.getX() + "," + mouse.getY());
-                        mice.remove(mouse);
-                        break;
-                    }
-                }
-            }
-
-            // sprawdzenie czy mysz dead z głodu
-            ArrayList<Mouse> miceToRemove = new ArrayList<>();
-            for (Mouse mouse : mice) {
-                if (mouse.getTurnsSinceLastCheese() >= 8) {
-                    miceToRemove.add(mouse);
-                }
-            }
-            for (Mouse mouse : miceToRemove) {
-                occupiedPositions.remove(mouse.getX() + "," + mouse.getY());
-                mice.remove(mouse);
-            }
-
-            // sprawdzenie czy kot dead z głodu
-            ArrayList<Cat> catsToRemove = new ArrayList<>();
-            for (Cat cat : cats) {
-                if (cat.getTurnsSinceLastMouse() >= 8) {
-                    catsToRemove.add(cat);
-                }
-            }
-            for (Cat cat : catsToRemove) {
-                occupiedPositions.remove(cat.getX() + "," + cat.getY());
-                cats.remove(cat);
-            }
-
-            // display planszy
-            System.out.println("Turn " + turn + ":");
-            for (ArrayList<Character> row : board) {
-                for (char c : row) {
-                    System.out.print(c + " ");
-                }
-                System.out.println();
-            }
-
-            // display liczników pokazuje turę +
-            System.out.println("Mice count: " + mice.size());
-            System.out.println("Cats count: " + cats.size());
-            System.out.println("Cheese count: " + plants.size());
             System.out.println();
+        }
+
+        System.out.println("Number of cats: " + numCats);
+        System.out.println("Number of mice: " + numMice);
+        System.out.println("Number of cheeses: " + numCheeses);
+    }
+
+
+    private static void moveAnimals(ArrayList<ArrayList<Character>> board, ArrayList<Mouse> mice, ArrayList<Cat> cats) {
+        for (Mouse mouse : mice) {
+            mouse.move(board);
+            mouse.incrementTurnsSinceLastCheese();
+        }
+        for (Cat cat : cats) {
+            cat.move(board);
+        }
+    }
+
+    private static void handleCollisions(ArrayList<ArrayList<Character>> board, ArrayList<Mouse> mice,
+                                         ArrayList<Cat> cats, ArrayList<Cheese> cheeseList) {
+        // Sprawdzenie czy kot złapał mysz
+        for (Cat cat : cats) {
+            for (Mouse mouse : mice) {
+                if (Math.abs(cat.getRow() - mouse.getRow()) <= 1 && Math.abs(cat.getCol() - mouse.getCol()) <= 1) {
+                    System.out.println("Cat caught a mouse!");
+                    board.get(mouse.getRow()).set(mouse.getCol(), Animal.EMPTY);
+                    mice.remove(mouse);
+                    cat.resetTurnsSinceLastMouse();
+                    break;
+                }
+            }
+        }
+
+        // Sprawdzenie czy mysz znalazła ser
+        for (Mouse mouse : mice) {
+            for (Cheese cheese : cheeseList) {
+                if (Math.abs(mouse.getRow() - cheese.getRow()) <= 1 && Math.abs(mouse.getCol() - cheese.getCol()) <= 1) {
+                    System.out.println("Mouse found cheese!");
+                    board.get(cheese.getRow()).set(cheese.getCol(), Animal.EMPTY);
+                    cheeseList.remove(cheese);
+                    mouse.resetTurnsSinceLastCheese();
+                    break;
+                }
+            }
+        }
+
+        // Sprawdzenie czy mysz umiera z głodu
+        for (Mouse mouse : mice) {
+            if (mouse.getTurnsSinceLastCheese() >= 8) {
+                System.out.println("Mouse died of hunger!");
+                board.get(mouse.getRow()).set(mouse.getCol(), Animal.EMPTY);
+                mice.remove(mouse);
+                break;
+            }
+        }
+
+        // Sprawdzenie czy kot umiera z głodu
+        for (Cat cat : cats) {
+            if (cat.getTurnsSinceLastMouse() >= 8) {
+                System.out.println("Cat died of hunger!");
+                board.get(cat.getRow()).set(cat.getCol(), Animal.EMPTY);
+                cats.remove(cat);
+                break;
+            }
         }
     }
 }
