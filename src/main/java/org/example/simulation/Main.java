@@ -1,163 +1,8 @@
-package org.example;
-
+package org.example.simulation;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
-
-class Animal {
-    protected int x;
-    protected int y;
-
-    public Animal(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    public void move() {
-
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-}
-
-class Mouse extends Animal {
-    private int turnsSinceLastCheese = 0;
-
-    public Mouse(int x, int y) {
-        super(x, y);
-    }
-
-    @Override
-    public void move() {
-        Random rand = new Random();
-        int direction = rand.nextInt(8); // 0 - up, 1 - down, 2 - left, 3 - right, 4 - up-right, 5 - down-right, 6 - down-left, 7 - up-left
-
-        switch(direction) {
-            case 0:
-                if (y > 0) y--;
-                break;
-            case 1:
-                if (y < 9) y++;
-                break;
-            case 2:
-                if (x > 0) x--;
-                break;
-            case 3:
-                if (x < 9) x++;
-                break;
-            case 4:
-                if (y > 0 && x < 9) {
-                    y--;
-                    x++;
-                }
-                break;
-            case 5:
-                if (y < 9 && x < 9) {
-                    y++;
-                    x++;
-                }
-                break;
-            case 6:
-                if (y < 9 && x > 0) {
-                    y++;
-                    x--;
-                }
-                break;
-            case 7:
-                if (y > 0 && x > 0) {
-                    y--;
-                    x--;
-                }
-                break;
-        }
-
-        turnsSinceLastCheese++;
-    }
-
-    public int getTurnsSinceLastCheese() {
-        return turnsSinceLastCheese;
-    }
-
-    public void resetTurnsSinceLastCheese() {
-        turnsSinceLastCheese = 0;
-    }
-}
-
-class Cat extends Animal {
-    private int turnsSinceLastMouse = 0;
-
-    public Cat(int x, int y) {
-        super(x, y);
-    }
-
-    @Override
-    public void move() {
-        Random rand = new Random();
-        int direction = rand.nextInt(8); // 0 - up, 1 - down, 2 - left, 3 - right, 4 - up-right, 5 - down-right, 6 - down-left, 7 - up-left
-
-        switch(direction) {
-            case 0:
-                if (y > 0) y--;
-                break;
-            case 1:
-                if (y < 9) y++;
-                break;
-            case 2:
-                if (x > 0) x--;
-                break;
-            case 3:
-                if (x < 9) x++;
-                break;
-            case 4:
-                if (y > 0 && x < 9) {
-                    y--;
-                    x++;
-                }
-                break;
-            case 5:
-                if (y < 9 && x < 9) {
-                    y++;
-                    x++;
-                }
-                break;
-            case 6:
-                if (y < 9 && x > 0) {
-                    y++;
-                    x--;
-                }
-                break;
-            case 7:
-                if (y > 0 && x > 0) {
-                    y--;
-                    x--;
-                }
-                break;
-        }
-
-        turnsSinceLastMouse++;
-    }
-
-    public int getTurnsSinceLastMouse() {
-        return turnsSinceLastMouse;
-    }
-
-    public void resetTurnsSinceLastMouse() {
-        turnsSinceLastMouse = 0;
-    }
-}
-
-class Cheese extends Animal {
-    public Cheese(int x, int y) {
-        super(x, y);
-    }
-}
 
 public class Main {
     public static void main(String[] args) {
@@ -196,7 +41,7 @@ public class Main {
         }
 
         // ser na polach
-        ArrayList<Cheese> cheeses = new ArrayList<>();
+        ArrayList<Plant> plants = new ArrayList<>();
         for (int i = 0; i < numCheese; i++) {
             int x, y;
             do {
@@ -204,7 +49,7 @@ public class Main {
                 y = new Random().nextInt(rows);
             } while (occupiedPositions.contains(x + "," + y));
             occupiedPositions.add(x + "," + y);
-            cheeses.add(new Cheese(x, y));
+            plants.add(new Plant(x, y));
         }
 
         // plansza
@@ -236,18 +81,18 @@ public class Main {
             }
 
             // ser na polach
-            for (Cheese cheese : cheeses) {
-                board.get(cheese.getY()).set(cheese.getX(), 'S'); // S represents the cheese
+            for (Plant plant : plants) {
+                board.get(plant.getY()).set(plant.getX(), 'S'); // S represents the cheese
             }
 
             // sprawdzenie czy mysz obok sera
             for (Mouse mouse : mice) {
-                for (Cheese cheese : cheeses) {
-                    int distance = Math.abs(mouse.getX() - cheese.getX()) + Math.abs(mouse.getY() - cheese.getY());
+                for (Plant plant : plants) {
+                    int distance = Math.abs(mouse.getX() - plant.getX()) + Math.abs(mouse.getY() - plant.getY());
                     if (distance <= 1) {
                         mouse.resetTurnsSinceLastCheese();
-                        occupiedPositions.remove(cheese.getX() + "," + cheese.getY());
-                        cheeses.remove(cheese);
+                        occupiedPositions.remove(plant.getX() + "," + plant.getY());
+                        plants.remove(plant);
                         break;
                     }
                 }
@@ -302,7 +147,7 @@ public class Main {
             // display liczników pokazuje turę +
             System.out.println("Mice count: " + mice.size());
             System.out.println("Cats count: " + cats.size());
-            System.out.println("Cheese count: " + cheeses.size());
+            System.out.println("Cheese count: " + plants.size());
             System.out.println();
         }
     }
