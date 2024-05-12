@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 public class Animal {
     protected static final char EMPTY = '.';
-    protected static final char CAT = 'C';
+    protected static final char FOX = 'C';
+    protected static final char RABBIT = 'R';
     protected static final char MOUSE = 'M';
-    protected static final char CHEESE = 'S';
+    protected static final char PLANT = 'P';
+    protected static final char LYNX = 'L';
 
     private int row;
     private int col;

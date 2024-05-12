@@ -2,12 +2,13 @@ package org.example.simulation;
 
 import java.util.ArrayList;
 
-public class Mouse extends Animal {
-    private int turnsSinceLastPlant;
+public class Lynx extends Animal {
 
-    public Mouse(int row, int col) {
+    private int turnsSinceLastMeal;
+
+    public Lynx(int row, int col) {
         super(row, col);
-        turnsSinceLastPlant = 0;
+        this.turnsSinceLastMeal = 0;
     }
 
     @Override
@@ -15,19 +16,19 @@ public class Mouse extends Animal {
         int newRow = getRow() + getRandomDirection();
         int newCol = getCol() + getRandomDirection();
         if (isValidMove(board, newRow, newCol)) {
-            board.get(newRow).set(newCol, MOUSE);
+            board.get(newRow).set(newCol, LYNX);
             board.get(getRow()).set(getCol(), EMPTY);
             setRow(newRow);
             setCol(newCol);
         }
-        turnsSinceLastPlant++;
+        turnsSinceLastMeal++;
     }
 
-    public int getTurnsSinceLastPlant() {
-        return turnsSinceLastPlant;
+    public int getTurnsSinceLastMeal() {
+        return turnsSinceLastMeal;
     }
 
-    public void resetTurnsSinceLastPlant() {
-        turnsSinceLastPlant = 0;
+    public void resetTurnsSinceLastMeal() {
+        turnsSinceLastMeal = 0;
     }
 }
