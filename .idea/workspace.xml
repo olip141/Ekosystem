@@ -5,15 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="db4906d5-e730-41ba-8cb5-df78d1a9257c" name="Changes" comment="Ekosystem commit">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/simulation/Lynx.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/simulation/Rabbit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/simulation/CreateEntities.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/simulation/HandleCollisions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/simulation/PrintBoard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/simulation/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/simulation/Animal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/simulation/Cat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/simulation/Fox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/simulation/Cheese.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/simulation/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/simulation/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/simulation/Mouse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/simulation/Mouse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/simulation/Plant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/simulation/Plant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/simulation/Simulation.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +87,7 @@
       <option name="presentableId" value="Default" />
       <updated>1715256167713</updated>
       <workItem from="1715256168802" duration="490000" />
-      <workItem from="1715515308065" duration="10708000" />
+      <workItem from="1715515308065" duration="13535000" />
     </task>
     <task id="LOCAL-00001" summary="Ekosystem commit">
       <option name="closed" value="true" />
@@ -124,7 +121,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715522421516</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Ekosystem commit">
+      <option name="closed" value="true" />
+      <created>1715527845459</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1715527845459</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
