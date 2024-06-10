@@ -7,8 +7,12 @@ import java.util.Scanner;
 import static org.example.simulation.Animal.*;
 import static org.example.simulation.Animal.PLANT;
 
+/**
+ * Responsible for creating initial entities and board for the simulation.
+ */
 public class CreateEntities {
 
+    // Parameters for simulation setup
     public static int BOARD_SIZE;
     private static int NUM_RABBITS;
     private static int NUM_MICE;
@@ -18,9 +22,13 @@ public class CreateEntities {
     static int NUM_TURNS;
     public static int sum;
 
+    /**
+     * Handles user input to set up the simulation parameters.
+     */
     public static void userInput() {
         Scanner scanner = new Scanner(System.in);
 
+        // Get user input for simulation parameters
         BOARD_SIZE = getInput(scanner, "Enter board size (e.g. type 10 to create 10x10 board): ");
         NUM_TURNS = getInput(scanner, "Enter number of turns: ");
         NUM_RABBITS = getInput(scanner, "Enter number of rabbits: ");
@@ -29,6 +37,7 @@ public class CreateEntities {
         NUM_FOXES = getInput(scanner, "Enter number of foxes: ");
         NUM_PLANTS = getInput(scanner, "Enter number of plants: ");
 
+        // Calculate total number of entities
         ArrayList<Integer> values = new ArrayList<>();
         values.add(NUM_RABBITS);
         values.add(NUM_MICE);
@@ -41,6 +50,12 @@ public class CreateEntities {
         }
     }
 
+    /**
+     * Obtains user input from the console.
+     * @param scanner the scanner object to read input
+     * @param prompt  the message prompting the user for input
+     * @return the integer input provided by the user
+     */
     static int getInput(Scanner scanner, String prompt) {
         int input = -1;
         while (input < 0) {
@@ -58,6 +73,10 @@ public class CreateEntities {
         return input;
     }
 
+    /**
+     * Creates the simulation board.
+     * @return The initialized simulation board.
+     */
     static ArrayList<ArrayList<Character>> createBoard() {
         ArrayList<ArrayList<Character>> board = new ArrayList<>();
         for (int i = 0; i < BOARD_SIZE; i++) {
@@ -70,6 +89,11 @@ public class CreateEntities {
         return board;
     }
 
+    /**
+     * Creates rabbits and initializes their positions on the board.
+     * @param board The simulation board.
+     * @return List of created rabbits.
+     */
     static ArrayList<Rabbit> createRabbits(ArrayList<ArrayList<Character>> board) {
         ArrayList<Rabbit> rabbits = new ArrayList<>();
         for (int i = 0; i < NUM_RABBITS; i++) {
@@ -85,6 +109,12 @@ public class CreateEntities {
         return rabbits;
     }
 
+    /**
+     * Creates mice and initializes their positions on the board.
+     *
+     * @param board The simulation board.
+     * @return List of created mice.
+     */
     static ArrayList<Mouse> createMice(ArrayList<ArrayList<Character>> board) {
         ArrayList<Mouse> mice = new ArrayList<>();
         for (int i = 0; i < NUM_MICE; i++) {
@@ -100,6 +130,11 @@ public class CreateEntities {
         return mice;
     }
 
+    /**
+     * Creates lynxes and initializes their positions on the board.
+     * @param board The simulation board.
+     * @return List of created lynxes.
+     */
     static ArrayList<Lynx> createLynxes(ArrayList<ArrayList<Character>> board) {
         ArrayList<Lynx> lynxes = new ArrayList<>();
         for (int i = 0; i < NUM_LYNXES; i++) {
@@ -115,6 +150,11 @@ public class CreateEntities {
         return lynxes;
     }
 
+    /**
+     * Creates foxes and initializes their positions on the board.
+     * @param board The simulation board.
+     * @return List of created foxes.
+     */
     static ArrayList<Fox> createFoxes(ArrayList<ArrayList<Character>> board) {
         ArrayList<Fox> foxes = new ArrayList<>();
         for (int i = 0; i < NUM_FOXES; i++) {
@@ -130,6 +170,11 @@ public class CreateEntities {
         return foxes;
     }
 
+    /**
+     * Creates plants and initializes their positions on the board.
+     * @param board The simulation board.
+     * @return List of created plants.
+     */
     static ArrayList<Plant> createPlant(ArrayList<ArrayList<Character>> board) {
         ArrayList<Plant> plantList = new ArrayList<>();
         for (int i = 0; i < NUM_PLANTS; i++) {
