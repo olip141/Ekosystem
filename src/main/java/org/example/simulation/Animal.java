@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Animal {
     protected static final char EMPTY = '.';
-    protected static final char FOX = 'C';
+    protected static final char FOX = 'F';
     protected static final char RABBIT = 'R';
     protected static final char MOUSE = 'M';
     protected static final char PLANT = 'P';

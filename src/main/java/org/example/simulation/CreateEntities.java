@@ -1,26 +1,69 @@
 package org.example.simulation;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 import static org.example.simulation.Animal.*;
 import static org.example.simulation.Animal.PLANT;
 
 public class CreateEntities {
 
-    private static final int BOARD_SIZE = 50;
-    private static final int NUM_RABBITS = 40;
-    private static final int NUM_MICE = 50;
-    private static final int NUM_LYNXES = 8;
-    private static final int NUM_FOXES = 10;
-    private static final int NUM_PLANTS = 100;
-    static final int NUM_TURNS = 20;
+    public static int BOARD_SIZE;
+    private static int NUM_RABBITS;
+    private static int NUM_MICE;
+    private static int NUM_LYNXES;
+    private static int NUM_FOXES;
+    private static int NUM_PLANTS;
+    static int NUM_TURNS;
+    public static int sum;
+
+    public static void userInput() {
+        Scanner scanner = new Scanner(System.in);
+
+        BOARD_SIZE = getInput(scanner, "Enter board size (e.g. type 10 to create 10x10 board): ");
+        NUM_TURNS = getInput(scanner, "Enter number of turns: ");
+        NUM_RABBITS = getInput(scanner, "Enter number of rabbits: ");
+        NUM_MICE = getInput(scanner, "Enter number of mice: ");
+        NUM_LYNXES = getInput(scanner, "Enter number of lynxes: ");
+        NUM_FOXES = getInput(scanner, "Enter number of foxes: ");
+        NUM_PLANTS = getInput(scanner, "Enter number of plants: ");
+
+        ArrayList<Integer> values = new ArrayList<>();
+        values.add(NUM_RABBITS);
+        values.add(NUM_MICE);
+        values.add(NUM_LYNXES);
+        values.add(NUM_FOXES);
+        values.add(NUM_PLANTS);
+
+        for (Integer value : values) {
+            sum += value;
+        }
+    }
+
+    static int getInput(Scanner scanner, String prompt) {
+        int input = -1;
+        while (input < 0) {
+            System.out.print(prompt);
+            try {
+                input = scanner.nextInt();
+                if (input < 0) {
+                    System.out.println("Input must be a non-negative integer. Please try again.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a non-negative integer.");
+                scanner.next(); // Clear the invalid input
+            }
+        }
+        return input;
+    }
 
     static ArrayList<ArrayList<Character>> createBoard() {
         ArrayList<ArrayList<Character>> board = new ArrayList<>();
         for (int i = 0; i < BOARD_SIZE; i++) {
             ArrayList<Character> row = new ArrayList<>();
             for (int j = 0; j < BOARD_SIZE; j++) {
-                row.add(Animal.EMPTY);
+                row.add(EMPTY);
             }
             board.add(row);
         }
@@ -34,7 +77,7 @@ public class CreateEntities {
             do {
                 row = (int) (Math.random() * BOARD_SIZE);
                 col = (int) (Math.random() * BOARD_SIZE);
-            } while (board.get(row).get(col) != Animal.EMPTY);
+            } while (board.get(row).get(col) != EMPTY);
             Rabbit rabbit = new Rabbit(row, col);
             rabbits.add(rabbit);
             board.get(row).set(col, RABBIT);
@@ -49,7 +92,7 @@ public class CreateEntities {
             do {
                 row = (int) (Math.random() * BOARD_SIZE);
                 col = (int) (Math.random() * BOARD_SIZE);
-            } while (board.get(row).get(col) != Animal.EMPTY);
+            } while (board.get(row).get(col) != EMPTY);
             Mouse mouse = new Mouse(row, col);
             mice.add(mouse);
             board.get(row).set(col, MOUSE);

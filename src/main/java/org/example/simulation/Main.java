@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import static org.example.simulation.CreateEntities.NUM_TURNS;
 import static org.example.simulation.CreateEntities.*;
+import static org.example.simulation.Errors.userInputErrors;
 import static org.example.simulation.HandleCollisions.handleCollisions;
 import static org.example.simulation.PrintBoard.printBoard;
 import static org.example.simulation.Move.moveAnimals;
@@ -11,6 +12,9 @@ import static org.example.simulation.Move.moveAnimals;
 public class Main {
 
     public static void main(String[] args) {
+
+        userInput();
+        userInputErrors();
 
         ArrayList<ArrayList<Character>> board = createBoard();
         ArrayList<Rabbit> rabbits = createRabbits(board);

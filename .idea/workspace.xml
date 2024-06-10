@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="db4906d5-e730-41ba-8cb5-df78d1a9257c" name="Changes" comment="Ekosystem commit">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/simulation/CreateEntities.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/simulation/HandleCollisions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/simulation/PrintBoard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/simulation/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/simulation/Animal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/simulation/CreateEntities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/simulation/CreateEntities.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/simulation/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/simulation/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/simulation/Simulation.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +53,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Gradle.Ekosystem [:CreateEntities.main()].executor": "Run",
     "Gradle.Ekosystem [:Main.main()].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -87,7 +86,9 @@
       <option name="presentableId" value="Default" />
       <updated>1715256167713</updated>
       <workItem from="1715256168802" duration="490000" />
-      <workItem from="1715515308065" duration="13535000" />
+      <workItem from="1715515308065" duration="13837000" />
+      <workItem from="1715623942717" duration="6727000" />
+      <workItem from="1718023710506" duration="4145000" />
     </task>
     <task id="LOCAL-00001" summary="Ekosystem commit">
       <option name="closed" value="true" />
@@ -129,7 +130,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715527845459</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Ekosystem commit">
+      <option name="closed" value="true" />
+      <created>1715542683673</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1715542683673</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -138,5 +147,15 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Ekosystem commit" />
     <option name="LAST_COMMIT_MESSAGE" value="Ekosystem commit" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.util.ConcurrentModificationException" package="java.util" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
