@@ -44,6 +44,5 @@ public class Main {
             // Handle any collisions or interactions between entities
             handleCollisions(board,lynxes, rabbits, mice,foxes ,plantList);
         }
-
     }
 }
